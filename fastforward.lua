@@ -13,7 +13,7 @@ local inertial_decay = false -- changes the behavior of speed decay
 
 
 -----------------------
-local mp = require 'mp'
+local mp = require "mp"
 local auto_dec_timer = nil
 local osd_duration = math.max(decay_delay, mp.get_property_number("osd-duration")/1000)
 
@@ -29,7 +29,7 @@ local function inc_speed()
     end
 
     mp.set_property("speed", new_speed)
-    mp.osd_message(("▶▶ x%.1f"):format(new_speed), osd_duration)
+    mp.command("script-binding uosc/flash-speed")
 end
 
 local function auto_dec_speed()
@@ -43,7 +43,7 @@ function dec_speed()
         if auto_dec_timer ~= nil then auto_dec_timer:kill() end
     end
     mp.set_property("speed", new_speed)
-    mp.osd_message(("▶▶ x%.1f"):format(new_speed), osd_duration)
+    mp.command("script-binding uosc/flash-speed")
 end
 
 local function fastforward_handle(table)
